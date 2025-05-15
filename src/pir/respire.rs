@@ -24,7 +24,7 @@ use crate::math::ring_elem::{NormedRingElement, RingElement};
 use crate::math::utils::{ceil_log, floor_log, mod_inverse, reverse_bits_fast};
 
 use crate::math::simd_utils::*;
-use crate::pir::pir::{PIRRecordBytes, Stats, PIR};
+use crate::pir::pir::{PIRRecordBytes, SerdeRound, Stats, PIR};
 
 pub struct RespireImpl<
     const Q1: u64,
@@ -379,7 +379,7 @@ pub trait Respire: PIR {
     type RingQ1Fast;
     type RLWEEncoding;
     type RLWEEncodingSeeded;
-    type RLWEEncodingCompressed;
+    type RLWEEncodingCompressed: SerdeRound;
     type GSWEncoding;
     type EncodingSecret;
     type VecEncodingSecret;
@@ -392,7 +392,7 @@ pub trait Respire: PIR {
     type CompressParams;
     type VectorizeParams;
     type VecRLWEEncoding;
-    type VecRLWEEncodingSmallTruncated;
+    type VecRLWEEncodingSmallTruncated: SerdeRound;
 
     // A single record
     type Record;
@@ -400,10 +400,10 @@ pub trait Respire: PIR {
     type RecordPackedSmall;
     // Packed records from a single response, before compression
     type RecordPacked;
-    type QueryOne;
+    type QueryOne: SerdeRound;
     type QueryOneExpanded;
-    type AnswerOne;
-    type AnswerOneCompressed;
+    type AnswerOne: SerdeRound;
+    type AnswerOneCompressed: SerdeRound;
 
     // Constants
     const PACKED_DIM1_SIZE: usize;

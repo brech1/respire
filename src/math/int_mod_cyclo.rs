@@ -13,6 +13,8 @@ use crate::math::rand_sampled::*;
 use crate::math::ring_elem::*;
 use crate::math::simd_utils::Aligned32;
 use rand::Rng;
+use serde::{Deserialize, Serialize};
+use serde_with::serde_as;
 use std::cmp::max;
 use std::iter;
 use std::ops::{Add, AddAssign, Index, Mul, MulAssign, Neg, Sub, SubAssign};
@@ -20,9 +22,11 @@ use std::ops::{Add, AddAssign, Index, Mul, MulAssign, Neg, Sub, SubAssign};
 /// The raw (coefficient) representation of an element of a cyclotomic ring.
 ///
 /// Internally, this is an array of coefficients where the `i`th index corresponds to `x^i`.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[serde_as]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C, align(32))]
 pub struct IntModCyclo<const D: usize, const N: u64> {
+    #[serde_as(as = "[_; D]")]
     pub coeff: [IntMod<N>; D],
 }
 

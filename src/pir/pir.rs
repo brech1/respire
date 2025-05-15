@@ -1,3 +1,4 @@
+use serde::{de::DeserializeOwned, Serialize};
 use std::collections::HashMap;
 use std::ops::AddAssign;
 use std::time::Duration;
@@ -40,12 +41,15 @@ impl<T: AddAssign<T> + Copy + Default> Stats<T> {
     }
 }
 
+pub trait SerdeRound: Serialize + DeserializeOwned {}
+impl<T: Serialize + DeserializeOwned> SerdeRound for T {}
+
 pub trait PIR {
     // Associated types
     type QueryKey;
     type PublicParams;
-    type Query;
-    type Response;
+    type Query: SerdeRound;
+    type Response: SerdeRound;
     type Database;
     type DatabaseHint;
     type State;

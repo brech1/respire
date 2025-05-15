@@ -1,13 +1,13 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
-use fhe_psi::math::gadget::{base_from_len, gadget_inverse};
-use fhe_psi::math::int_mod_cyclo::IntModCyclo;
-use fhe_psi::math::int_mod_cyclo_crt::IntModCycloCRT;
-use fhe_psi::math::int_mod_cyclo_crt_eval::IntModCycloCRTEval;
-use fhe_psi::math::matrix::Matrix;
-use fhe_psi::math::ntt::{ntt_neg_backward, ntt_neg_forward};
-use fhe_psi::math::rand_sampled::RandUniformSampled;
 use rand::SeedableRng;
 use rand_chacha::ChaCha20Rng;
+use respire::math::gadget::{base_from_len, gadget_inverse};
+use respire::math::int_mod_cyclo::IntModCyclo;
+use respire::math::int_mod_cyclo_crt::IntModCycloCRT;
+use respire::math::int_mod_cyclo_crt_eval::IntModCycloCRTEval;
+use respire::math::matrix::Matrix;
+use respire::math::ntt::{ntt_neg_backward, ntt_neg_forward};
+use respire::math::rand_sampled::RandUniformSampled;
 
 fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("math::ntt_neg_forward", |b| {
