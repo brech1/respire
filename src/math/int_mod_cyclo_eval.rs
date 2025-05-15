@@ -12,6 +12,8 @@ use crate::math::ring_elem::*;
 use crate::math::simd_utils::Aligned32;
 use crate::math::utils::reverse_bits_fast;
 use rand::Rng;
+use serde::{Deserialize, Serialize};
+use serde_with::serde_as;
 use std::ops::{Add, AddAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 
 // TODO
@@ -23,9 +25,11 @@ use std::ops::{Add, AddAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 /// Internally, this is an array of evaluations, where the `i`th index corresponds to `f(w^{2*bit_reverse(i)+1})`.
 /// `w` here is the `2*D`th root of unity. However, implementations should not rely on the ordering
 /// of `evals`.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[serde_as]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(C, align(32))]
 pub struct IntModCycloEval<const D: usize, const N: u64> {
+    #[serde_as(as = "[_; D]")]
     pub evals: [IntMod<N>; D],
 }
 

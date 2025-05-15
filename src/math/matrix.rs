@@ -3,6 +3,8 @@
 use crate::math::rand_sampled::*;
 use crate::math::ring_elem::*;
 use rand::Rng;
+use serde::Deserialize;
+use serde::Serialize;
 use std::cmp::max;
 use std::mem::ManuallyDrop;
 use std::ops::{Add, AddAssign, Index, IndexMut, Mul, Neg, Sub, SubAssign};
@@ -17,7 +19,7 @@ use std::ops::{Add, AddAssign, Index, IndexMut, Mul, Neg, Sub, SubAssign};
 ///
 /// Technically, `Matrix` could in itself be `RingElement`. But so far there has not been a need
 /// for this, so it is not implemented.
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(transparent)]
 pub struct Matrix<const N: usize, const M: usize, R: RingElement>
 where

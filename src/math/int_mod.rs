@@ -6,6 +6,7 @@ use crate::math::matrix::Matrix;
 use crate::math::rand_sampled::*;
 use crate::math::ring_elem::*;
 use rand::Rng;
+use serde::{Deserialize, Serialize};
 use std::cmp::min;
 use std::fmt;
 use std::ops::{Add, AddAssign, Mul, MulAssign, Neg, Sub, SubAssign};
@@ -24,7 +25,7 @@ use std::ops::{Add, AddAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 /// indeed reduced already.
 ///
 /// The behavior when `N = 1` is not defined.
-#[derive(Clone, Copy, Hash, PartialEq, Eq)]
+#[derive(Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
 #[repr(transparent)]
 pub struct IntMod<const N: u64> {
     a: u64,
